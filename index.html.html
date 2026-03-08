@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GLOWTHEORY — Personalised Skincare</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #FAF6F1;
+    --warm-white: #FDF9F5;
+    --sand: #E8DCCF;
+    --taupe: #C4AA8F;
+    --espresso: #2C1F14;
+    --mocha: #5C3D2E;
+    --blush: #E8C4B0;
+    --gold: #B8924A;
+    --sage: #8A9E8C;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--espresso);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.4rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(250,246,241,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,170,143,0.25);
+    transition: all 0.3s ease;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500; letter-spacing: 0.18em;
+    color: var(--espresso); text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mocha);
+    text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--espresso); color: var(--cream) !important;
+    padding: 0.55rem 1.4rem; border-radius: 2px;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--cream) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 6rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.68rem; font-weight: 400; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.8rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+    font-weight: 300; line-height: 1.08;
+    color: var(--espresso);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+    color: var(--mocha); max-width: 440px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: var(--espresso); color: var(--cream);
+    padding: 0.9rem 2.2rem; border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 0.72rem;
+    font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--espresso);
+    padding: 0.9rem 2.2rem; border: 1px solid var(--taupe); cursor: pointer;
+    font-family: 'Jost', sans-serif; font-size: 0.72rem;
+    font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+    border-radius: 2px; text-decoration: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--espresso); transform: translateY(-2px); }
+
+  .hero-stat-row {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .hero-stat span {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300; color: var(--espresso);
+  }
+  .hero-stat p {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--taupe); margin-top: 0.2rem;
+  }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #F0E6D8 0%, #E4D5C3 50%, #D4C0A8 100%);
+    animation: fadeIn 1s ease 0.2s both;
+  }
+  .hero-img-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(184,146,74,0.12) 0%, transparent 60%);
+  }
+  .hero-visual {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 2rem;
+  }
+  .product-mockup {
+    width: 220px; height: 300px;
+    background: linear-gradient(160deg, #FAF6F1 0%, #EDE0D0 100%);
+    border-radius: 60px 60px 50px 50px;
+    box-shadow: 0 40px 80px rgba(44,31,20,0.18), 0 0 0 1px rgba(196,170,143,0.3);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.8rem;
+    position: relative; overflow: hidden;
+    animation: float 5s ease-in-out infinite;
+  }
+  .product-mockup::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 50%;
+    background: linear-gradient(180deg, rgba(184,146,74,0.08) 0%, transparent 100%);
+    border-radius: 60px 60px 0 0;
+  }
+  .product-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 500; letter-spacing: 0.12em;
+    color: var(--espresso); text-align: center;
+  }
+  .product-sub {
+    font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .product-dot {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blush), var(--taupe));
+    margin-top: 0.5rem;
+  }
+  .floating-tag {
+    position: absolute; background: white;
+    padding: 0.6rem 1rem; border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(44,31,20,0.1);
+    font-size: 0.72rem; font-weight: 400; color: var(--espresso);
+    display: flex; align-items: center; gap: 0.5rem;
+    animation: float 4s ease-in-out infinite;
+  }
+  .floating-tag .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+  .tag-1 { top: 20%; left: 8%; animation-delay: -1s; }
+  .tag-2 { bottom: 25%; right: 6%; animation-delay: -2.5s; }
+  .tag-3 { top: 60%; left: 5%; animation-delay: -0.5s; font-size: 0.65rem; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 6rem; }
+  .section-eyebrow {
+    font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.4rem);
+    font-weight: 300; line-height: 1.15; color: var(--espresso);
+  }
+  .section-title em { font-style: italic; }
+
+  /* ── SKIN QUIZ ── */
+  .quiz-section {
+    background: var(--espresso);
+    color: var(--cream);
+    padding: 7rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  .quiz-section::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,146,74,0.15) 0%, transparent 70%);
+  }
+  .quiz-section .section-eyebrow { color: var(--taupe); }
+  .quiz-section .section-title { color: var(--cream); }
+  .quiz-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: start; margin-top: 3.5rem;
+  }
+  .quiz-desc {
+    font-size: 0.95rem; font-weight: 300; line-height: 1.9;
+    color: rgba(250,246,241,0.7); margin-bottom: 2rem;
+  }
+
+  /* Quiz Form */
+  .quiz-form { display: flex; flex-direction: column; gap: 1.4rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-label {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--taupe);
+  }
+  .form-control {
+    background: rgba(250,246,241,0.06); border: 1px solid rgba(196,170,143,0.25);
+    color: var(--cream); padding: 0.85rem 1.1rem;
+    font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300;
+    border-radius: 3px; outline: none; transition: border-color 0.3s;
+    appearance: none;
+  }
+  .form-control:focus { border-color: var(--gold); }
+  .form-control option { background: var(--espresso); }
+
+  .concern-chips {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem;
+  }
+  .chip {
+    padding: 0.5rem 1.1rem; border: 1px solid rgba(196,170,143,0.3);
+    border-radius: 20px; font-size: 0.72rem; font-weight: 300;
+    letter-spacing: 0.08em; color: rgba(250,246,241,0.7);
+    cursor: pointer; transition: all 0.25s; user-select: none;
+  }
+  .chip:hover { border-color: var(--gold); color: var(--gold); }
+  .chip.active {
+    background: var(--gold); border-color: var(--gold);
+    color: var(--espresso); font-weight: 500;
+  }
+
+  .quiz-result {
+    display: none; margin-top: 2rem;
+    background: rgba(250,246,241,0.07); border: 1px solid rgba(184,146,74,0.3);
+    border-radius: 6px; padding: 1.8rem;
+  }
+  .quiz-result.show { display: block; animation: fadeUp 0.5s ease; }
+  .result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400; color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .result-text {
+    font-size: 0.85rem; font-weight: 300; line-height: 1.8;
+    color: rgba(250,246,241,0.75);
+  }
+  .result-products {
+    display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.2rem;
+  }
+  .result-tag {
+    background: rgba(184,146,74,0.15); border: 1px solid rgba(184,146,74,0.4);
+    color: var(--blush); padding: 0.35rem 0.85rem;
+    border-radius: 3px; font-size: 0.68rem; letter-spacing: 0.1em;
+  }
+
+  /* ── PRODUCTS ── */
+  .products-section { background: var(--warm-white); }
+  .products-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+  }
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  }
+  .product-card {
+    background: var(--cream); border-radius: 4px;
+    overflow: hidden; cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    border: 1px solid rgba(196,170,143,0.2);
+  }
+  .product-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(44,31,20,0.1); }
+  .card-img {
+    height: 260px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-img-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .card-img-bg { transform: scale(1.05); }
+  .card-bottle {
+    width: 90px; height: 130px;
+    background: linear-gradient(160deg, #FAF6F1 0%, #EDE0D0 100%);
+    border-radius: 30px 30px 20px 20px;
+    box-shadow: 0 12px 30px rgba(44,31,20,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 4px; position: relative; z-index: 1;
+  }
+  .card-bottle-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.58rem; font-weight: 500; letter-spacing: 0.12em;
+    color: var(--espresso); text-align: center; padding: 0 6px;
+    line-height: 1.3;
+  }
+  .card-bottle-dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    margin-top: 4px;
+  }
+  .card-body { padding: 1.4rem 1.6rem 1.8rem; }
+  .card-category {
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.4rem;
+  }
+  .card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 400; color: var(--espresso);
+    margin-bottom: 0.5rem;
+  }
+  .card-desc {
+    font-size: 0.8rem; font-weight: 300; line-height: 1.7;
+    color: var(--mocha); margin-bottom: 1.2rem;
+  }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .card-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; color: var(--espresso);
+  }
+  .card-badge {
+    font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.3rem 0.7rem; border-radius: 2px;
+  }
+  .badge-best { background: rgba(138,158,140,0.15); color: var(--sage); }
+  .badge-new { background: rgba(184,146,74,0.12); color: var(--gold); }
+  .badge-glow { background: rgba(232,196,176,0.3); color: var(--mocha); }
+
+  /* ── HOW IT WORKS ── */
+  .how-section { background: var(--sand); padding: 7rem 6rem; }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem; margin-top: 4rem; position: relative;
+  }
+  .steps-grid::before {
+    content: '';
+    position: absolute; top: 2.5rem; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--taupe), var(--taupe), var(--taupe), transparent);
+  }
+  .step { text-align: center; position: relative; }
+  .step-num {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--cream); border: 1px solid var(--taupe);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--gold);
+    position: relative; z-index: 1;
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 400; color: var(--espresso);
+    margin-bottom: 0.6rem;
+  }
+  .step-desc {
+    font-size: 0.8rem; font-weight: 300; line-height: 1.7;
+    color: var(--mocha);
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials-section { background: var(--warm-white); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; margin-top: 3.5rem;
+  }
+  .testimonial {
+    background: var(--cream); padding: 2.2rem;
+    border-radius: 4px; border: 1px solid rgba(196,170,143,0.2);
+    transition: transform 0.3s;
+  }
+  .testimonial:hover { transform: translateY(-4px); }
+  .stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .testimonial-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-style: italic; font-weight: 300;
+    line-height: 1.75; color: var(--espresso); margin-bottom: 1.5rem;
+  }
+  .testimonial-author {
+    font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--taupe);
+  }
+  .testimonial-author strong { color: var(--mocha); font-weight: 500; }
+
+  /* ── INGREDIENTS ── */
+  .ingredients-section {
+    background: var(--espresso); padding: 7rem 6rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .ingredients-section .section-title { color: var(--cream); }
+  .ingredients-section .section-eyebrow { color: var(--taupe); }
+  .ingredients-desc {
+    font-size: 0.95rem; font-weight: 300; line-height: 1.9;
+    color: rgba(250,246,241,0.65); margin: 1.5rem 0 2.5rem;
+  }
+  .ingredient-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .ingredient-item {
+    padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(196,170,143,0.2); border-radius: 4px;
+  }
+  .ingredient-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 400; color: var(--gold); margin-bottom: 0.3rem;
+  }
+  .ingredient-desc { font-size: 0.72rem; font-weight: 300; color: rgba(250,246,241,0.5); line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1A1008; padding: 5rem 6rem 3rem;
+    color: rgba(250,246,241,0.5);
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem; margin-bottom: 4rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(196,170,143,0.1);
+  }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; letter-spacing: 0.15em;
+    color: var(--cream); margin-bottom: 1rem;
+  }
+  .footer-brand-name span { color: var(--gold); }
+  .footer-brand-desc { font-size: 0.82rem; font-weight: 300; line-height: 1.8; }
+  .footer-col-title {
+    font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--taupe); margin-bottom: 1.4rem;
+  }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a {
+    font-size: 0.82rem; font-weight: 300; color: rgba(250,246,241,0.5);
+    text-decoration: none; transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--cream); }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy { font-size: 0.72rem; font-weight: 300; }
+  .footer-copy span { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    nav { padding: 1.2rem 2rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 4rem 2rem; }
+    section, .quiz-section, .how-section, .ingredients-section, footer { padding: 5rem 2rem; }
+    .products-grid, .testimonials-grid { grid-template-columns: 1fr 1fr; }
+    .quiz-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .steps-grid::before { display: none; }
+    .ingredients-section { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 640px) {
+    .products-grid, .testimonials-grid, .steps-grid { grid-template-columns: 1fr; }
+    .hero-stat-row { gap: 1.5rem; }
+    .products-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">GLOW<span>THEORY</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#quiz">Skin Quiz</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#ingredients">Ingredients</a></li>
+    <li><a href="#quiz" class="nav-cta">Find Your Routine</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Science-Backed · Personally Curated</p>
+    <h1 class="hero-title">Skincare <em>tailored</em><br>to your skin's<br>truth.</h1>
+    <p class="hero-desc">GLOWTHEORY combines dermatologist-grade formulations with a personalised skin quiz to build a routine that works precisely for you — not just anyone.</p>
+    <div class="hero-btns">
+      <a href="#quiz" class="btn-primary">Take the Skin Quiz</a>
+      <a href="#products" class="btn-outline">Explore Products</a>
+    </div>
+    <div class="hero-stat-row">
+      <div class="hero-stat">
+        <span>98%</span>
+        <p>saw results in 4 weeks</p>
+      </div>
+      <div class="hero-stat">
+        <span>40+</span>
+        <p>active ingredients</p>
+      </div>
+      <div class="hero-stat">
+        <span>12K+</span>
+        <p>skin profiles matched</p>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-overlay"></div>
+    <div class="hero-visual">
+      <div class="product-mockup">
+        <div class="product-sub">GLOWTHEORY</div>
+        <div class="product-label">Barrier<br>Repair Serum</div>
+        <div class="product-dot"></div>
+      </div>
+    </div>
+    <div class="floating-tag tag-1"><span class="dot"></span> Fragrance-Free</div>
+    <div class="floating-tag tag-2"><span class="dot"></span> Dermatologist Tested</div>
+    <div class="floating-tag tag-3" style="background: rgba(184,146,74,0.12); border: 1px solid rgba(184,146,74,0.3);">✦ Personalised for You</div>
+  </div>
+</section>
+
+<!-- SKIN QUIZ -->
+<section class="quiz-section" id="quiz">
+  <p class="section-eyebrow">Your Personalised Ritual</p>
+  <h2 class="section-title">Discover your <em>perfect</em><br>skin routine.</h2>
+  <div class="quiz-inner">
+    <div>
+      <p class="quiz-desc">Answer a few quick questions and our algorithm will map your unique skin profile — recommending the exact formulas, ingredients, and routine steps your skin needs to thrive.</p>
+      <p class="quiz-desc">No guesswork. No generic advice. Just science that speaks to your skin.</p>
+    </div>
+    <div>
+      <div class="quiz-form">
+        <div class="form-group">
+          <label class="form-label">Your Skin Type</label>
+          <select class="form-control" id="skinType">
+            <option value="">Select your skin type</option>
+            <option value="oily">Oily</option>
+            <option value="dry">Dry</option>
+            <option value="combo">Combination</option>
+            <option value="sensitive">Sensitive</option>
+            <option value="normal">Normal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Age Range</label>
+          <select class="form-control" id="ageRange">
+            <option value="">Select age range</option>
+            <option value="teens">Under 20</option>
+            <option value="20s">20–29</option>
+            <option value="30s">30–39</option>
+            <option value="40s">40–49</option>
+            <option value="50+">50+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Primary Skin Concerns (select all that apply)</label>
+          <div class="concern-chips">
+            <span class="chip" onclick="toggleChip(this)">Acne & Breakouts</span>
+            <span class="chip" onclick="toggleChip(this)">Dullness</span>
+            <span class="chip" onclick="toggleChip(this)">Fine Lines</span>
+            <span class="chip" onclick="toggleChip(this)">Hyperpigmentation</span>
+            <span class="chip" onclick="toggleChip(this)">Redness</span>
+            <span class="chip" onclick="toggleChip(this)">Dehydration</span>
+            <span class="chip" onclick="toggleChip(this)">Uneven Texture</span>
+            <span class="chip" onclick="toggleChip(this)">Dark Circles</span>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="generateResult()" style="margin-top:0.5rem; border:none; width:fit-content;">
+          Reveal My Routine →
+        </button>
+      </div>
+      <div class="quiz-result" id="quizResult">
+        <div class="result-title" id="resultTitle">Your Skin Profile</div>
+        <div class="result-text" id="resultText"></div>
+        <div class="result-products" id="resultProducts"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="products-header">
+    <div>
+      <p class="section-eyebrow">Curated Collection</p>
+      <h2 class="section-title">Our <em>bestselling</em> formulas.</h2>
+    </div>
+    <a href="#" class="btn-outline">View All Products</a>
+  </div>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #F5EDE2, #EAD9C8);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">Barrier<br>Repair</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #E8C4B0, #C4AA8F);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Serum</p>
+        <h3 class="card-name">Barrier Repair Serum</h3>
+        <p class="card-desc">Ceramide-rich formula that strengthens the skin barrier and locks in hydration all day.</p>
+        <div class="card-footer">
+          <span class="card-price">₹2,499</span>
+          <span class="card-badge badge-best">Bestseller</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #EAF0EA, #D4E0D4);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">Vitamin C<br>Glow</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #8A9E8C, #6B8A6E);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Brightening</p>
+        <h3 class="card-name">Vitamin C Glow Drops</h3>
+        <p class="card-desc">Stabilised 15% Vitamin C with ferulic acid for visible brightening and dark spot correction.</p>
+        <div class="card-footer">
+          <span class="card-price">₹2,899</span>
+          <span class="card-badge badge-new">New</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #F0E8F5, #E0D0EC);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">Retinol<br>Renew</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #C4A8D8, #A888C0);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Anti-Ageing</p>
+        <h3 class="card-name">Retinol Renewal Cream</h3>
+        <p class="card-desc">Microencapsulated retinol with niacinamide — powerful anti-ageing, gentle enough for beginners.</p>
+        <div class="card-footer">
+          <span class="card-price">₹3,199</span>
+          <span class="card-badge badge-glow">Glow Pick</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #F5F0E5, #EDE5D0);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">Hydra<br>Gel</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #B8C8D8, #90A8BC);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Moisturiser</p>
+        <h3 class="card-name">HydraGel Moisturiser</h3>
+        <p class="card-desc">Hyaluronic acid gel-cream that provides 72-hour hydration without clogging pores.</p>
+        <div class="card-footer">
+          <span class="card-price">₹1,899</span>
+          <span class="card-badge badge-best">Bestseller</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #F5E8E0, #EDD8CC);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">AHA BHA<br>Exfoliant</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #D8A898, #C08870);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Exfoliant</p>
+        <h3 class="card-name">AHA·BHA Liquid Exfoliant</h3>
+        <p class="card-desc">A gentle yet effective blend of glycolic and salicylic acid for smoother, clearer skin.</p>
+        <div class="card-footer">
+          <span class="card-price">₹1,699</span>
+          <span class="card-badge badge-new">New</span>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="card-img">
+        <div class="card-img-bg" style="background: linear-gradient(135deg, #E8EEF0, #D0DCE4);"></div>
+        <div class="card-bottle">
+          <div class="card-bottle-label">SPF 50<br>Shield</div>
+          <div class="card-bottle-dot" style="background: linear-gradient(135deg, #90B8C8, #6898AC);"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Sun Protection</p>
+        <h3 class="card-name">Invisible SPF 50 Fluid</h3>
+        <p class="card-desc">Ultra-light, no-white-cast mineral sunscreen with antioxidant-rich botanicals.</p>
+        <div class="card-footer">
+          <span class="card-price">₹1,499</span>
+          <span class="card-badge badge-glow">Glow Pick</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div style="text-align: center;">
+    <p class="section-eyebrow">The GLOWTHEORY Method</p>
+    <h2 class="section-title">A ritual built <em>for you,</em><br>backed by science.</h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3 class="step-title">Take the Skin Quiz</h3>
+      <p class="step-desc">Share your skin type, concerns, and lifestyle in under 3 minutes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3 class="step-title">Get Your Skin Profile</h3>
+      <p class="step-desc">Our algorithm analyses 30+ factors to map your unique skin profile.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3 class="step-title">Receive Your Routine</h3>
+      <p class="step-desc">A curated, step-by-step regimen with precisely matched products.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3 class="step-title">Evolve with Your Skin</h3>
+      <p class="step-desc">Re-quiz anytime. Your routine adapts as your skin changes over time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="reviews">
+  <div style="text-align: center; margin-bottom: 1rem;">
+    <p class="section-eyebrow">Real Results</p>
+    <h2 class="section-title">Skin stories that <em>glow.</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"The quiz recommended the Barrier Repair Serum and within 2 weeks my skin stopped flaking entirely. I've never felt so understood by a skincare brand."</p>
+      <p class="testimonial-author"><strong>Ananya S.</strong> · Dry Skin · Chennai</p>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"My acne-prone combination skin finally has a routine that doesn't break me out. The personalisation is real — it's not just marketing."</p>
+      <p class="testimonial-author"><strong>Priya M.</strong> · Combination Skin · Mumbai</p>
+    </div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">"I'm in my 40s and was worried about starting retinol. GLOWTHEORY's quiz guided me to the perfect entry-level formula. My skin looks genuinely younger."</p>
+      <p class="testimonial-author"><strong>Rekha V.</strong> · Mature Skin · Bangalore</p>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS -->
+<section class="ingredients-section" id="ingredients">
+  <div>
+    <p class="section-eyebrow">What We Put In</p>
+    <h2 class="section-title">Ingredients you can<br><em>trust completely.</em></h2>
+    <p class="ingredients-desc">Every GLOWTHEORY formula is built on peer-reviewed ingredients at clinically effective concentrations. We never dilute. We never deceive. What's on the label is what works.</p>
+    <a href="#products" class="btn-primary" style="background: var(--gold);">Explore Our Formulas</a>
+  </div>
+  <div class="ingredient-list">
+    <div class="ingredient-item">
+      <div class="ingredient-name">Ceramides</div>
+      <div class="ingredient-desc">Restores the skin barrier. Locks in moisture. Prevents TEWL.</div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-name">Niacinamide</div>
+      <div class="ingredient-desc">Minimises pores, brightens skin tone, reduces inflammation.</div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-name">Hyaluronic Acid</div>
+      <div class="ingredient-desc">Multi-weight hydration. Plumps and smooths from within.</div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-name">Retinol</div>
+      <div class="ingredient-desc">Clinically proven to reduce fine lines and accelerate cell turnover.</div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-name">Vitamin C</div>
+      <div class="ingredient-desc">Antioxidant protection, collagen synthesis, and brightening.</div>
+    </div>
+    <div class="ingredient-item">
+      <div class="ingredient-name">Peptides</div>
+      <div class="ingredient-desc">Signal proteins that stimulate collagen and elastin production.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">GLOW<span>THEORY</span></div>
+      <p class="footer-brand-desc">Personalised skincare powered by science.<br>Made for skin that's as unique as you are.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Shop</p>
+      <ul class="footer-links">
+        <li><a href="#">All Products</a></li>
+        <li><a href="#">Serums</a></li>
+        <li><a href="#">Moisturisers</a></li>
+        <li><a href="#">Suncare</a></li>
+        <li><a href="#">Bundles</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Learn</p>
+      <ul class="footer-links">
+        <li><a href="#">Skin Quiz</a></li>
+        <li><a href="#">Ingredient Glossary</a></li>
+        <li><a href="#">Skin School Blog</a></li>
+        <li><a href="#">Routines</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Company</p>
+      <ul class="footer-links">
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>GLOWTHEORY</span>. All rights reserved.</p>
+    <p class="footer-copy">Crafted with care · Backed by science</p>
+  </div>
+</footer>
+
+<script>
+  function toggleChip(el) {
+    el.classList.toggle('active');
+  }
+
+  function generateResult() {
+    const skinType = document.getElementById('skinType').value;
+    const age = document.getElementById('ageRange').value;
+    const chips = document.querySelectorAll('.chip.active');
+    const concerns = Array.from(chips).map(c => c.textContent);
+
+    if (!skinType) { alert('Please select your skin type to continue.'); return; }
+
+    const profiles = {
+      oily: { title: 'Oil-Balancing Clarity Routine', text: 'Your oily skin needs lightweight, non-comedogenic formulas that regulate sebum without stripping moisture. We recommend a gentle foaming cleanser, BHA exfoliant, and our oil-free HydraGel Moisturiser.', products: ['HydraGel Moisturiser', 'AHA·BHA Exfoliant', 'Vitamin C Glow Drops', 'Invisible SPF 50'] },
+      dry: { title: 'Intense Nourishment Ritual', text: 'Your dry skin craves rich, barrier-supporting formulas. We recommend layering hydrating essences under occlusive moisturisers, anchored by ceramides and fatty acids to prevent moisture loss.', products: ['Barrier Repair Serum', 'HydraGel Moisturiser', 'Retinol Renewal Cream', 'Invisible SPF 50'] },
+      combo: { title: 'Zone-Smart Balance Routine', text: 'Combination skin needs zone-targeted care — lightweight hydration for oily areas, richer formulas where it\'s dry. Niacinamide is your hero ingredient.', products: ['Barrier Repair Serum', 'AHA·BHA Exfoliant', 'HydraGel Moisturiser', 'Invisible SPF 50'] },
+      sensitive: { title: 'Calm & Strengthen Protocol', text: 'Sensitive skin needs minimal, fragrance-free formulas that build the barrier before targeting concerns. We recommend starting slowly and patch-testing every new addition.', products: ['Barrier Repair Serum', 'HydraGel Moisturiser', 'Invisible SPF 50'] },
+      normal: { title: 'Maintenance Glow Routine', text: 'Lucky you — normal skin just needs consistent maintenance. Focus on antioxidant protection, gentle exfoliation, and SPF to keep your skin glowing for years to come.', products: ['Vitamin C Glow Drops', 'AHA·BHA Exfoliant', 'HydraGel Moisturiser', 'Invisible SPF 50'] }
+    };
+
+    const p = profiles[skinType] || profiles['normal'];
+    if (concerns.includes('Fine Lines') || age === '40s' || age === '50+') {
+      if (!p.products.includes('Retinol Renewal Cream')) p.products.unshift('Retinol Renewal Cream');
+    }
+    if (concerns.includes('Hyperpigmentation') || concerns.includes('Dullness')) {
+      if (!p.products.includes('Vitamin C Glow Drops')) p.products.unshift('Vitamin C Glow Drops');
+    }
+
+    document.getElementById('resultTitle').textContent = p.title;
+    document.getElementById('resultText').textContent = p.text;
+    const prodEl = document.getElementById('resultProducts');
+    prodEl.innerHTML = p.products.map(pr => `<span class="result-tag">${pr}</span>`).join('');
+
+    const result = document.getElementById('quizResult');
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+</body>
+</html>
